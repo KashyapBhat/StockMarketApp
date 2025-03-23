@@ -3,10 +3,10 @@ package kashyap.learning.stocktrading.core.presentation
 import androidx.compose.material.darkColors
 import androidx.compose.ui.graphics.Color
 
-val AppBlue = Color(0x487FD9)
-val AppRed = Color(0xFF3165)
-val AppGreen = Color(0x78CBBB)
-val AppBlack = Color(0x16171C)
+val AppBlue = Color(0xFF487FD9)
+val AppRed = Color(0xFFFF3165)
+val AppGreen = Color(0xFF78CBBB)
+val AppBlack = Color(0xFF16171C)
 
 val DarkBlue = Color(0xFF0B405E)
 val DesertWhite = Color(0xFFF7F7F7)
