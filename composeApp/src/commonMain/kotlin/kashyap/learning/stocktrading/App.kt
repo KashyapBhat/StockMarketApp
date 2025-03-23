@@ -1,35 +1,45 @@
 package kashyap.learning.stocktrading
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.Button
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import org.jetbrains.compose.resources.painterResource
+import androidx.compose.runtime.Composable
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigation
+import androidx.navigation.compose.rememberNavController
+import kashyap.learning.stocktrading.route.Route
+import kashyap.learning.stocktrading.stockmarket.presentation.home.HomeScreenRoot
+import kashyap.learning.stocktrading.stockmarket.presentation.stockdetails.StockDetailsScreenRoot
 import org.jetbrains.compose.ui.tooling.preview.Preview
-
-import stocktradingapp.composeapp.generated.resources.Res
-import stocktradingapp.composeapp.generated.resources.compose_multiplatform
 
 @Composable
 @Preview
 fun App() {
     MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
-        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-            Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
-            }
-            AnimatedVisibility(showContent) {
-                val greeting = remember { Greeting().greet() }
-                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                    Image(painterResource(Res.drawable.compose_multiplatform), null)
-                    Text("Compose: $greeting")
+        val navController = rememberNavController()
+        NavHost(
+            navController = navController,
+            startDestination = Route.StockAppGraph
+        ) {
+            navigation<Route.StockAppGraph>(
+                startDestination = Route.HomePage
+            ) {
+                composable<Route.HomePage>(
+                    exitTransition = { slideOutHorizontally() },
+                    popEnterTransition = { slideInHorizontally() }
+                ) {
+                    HomeScreenRoot()
+                }
+                composable<Route.StockPage>(
+                    enterTransition = { slideInHorizontally { initialOffset ->
+                        initialOffset
+                    } },
+                    exitTransition = { slideOutHorizontally { initialOffset ->
+                        initialOffset
+                    } }
+                ) {
+                    StockDetailsScreenRoot()
                 }
             }
         }
