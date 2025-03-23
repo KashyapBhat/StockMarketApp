@@ -1,9 +1,9 @@
-package kashyap.learning.stocktrading.core.data
+package kashyap.learning.stocktrading.core.domain
 
 // The Result sealed interface represents a common pattern for handling success and error outcomes in Kotlin.
 sealed interface Result<out D, out E : Error> {
     data class Success<out D>(val data: D) : Result<D, Nothing>
-    data class Error<out E : kashyap.learning.stocktrading.core.data.Error>(val error: E) :
+    data class Error<out E : kashyap.learning.stocktrading.core.domain.Error>(val error: E) :
         Result<Nothing, E>
 }
 
