@@ -18,7 +18,7 @@ fun AppButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    variant: ButtonVariant = ButtonVariant.TEXT
+    variant: ButtonVariant = ButtonVariant.PRIMARY
 ) {
     Button(
         onClick = onClick,
