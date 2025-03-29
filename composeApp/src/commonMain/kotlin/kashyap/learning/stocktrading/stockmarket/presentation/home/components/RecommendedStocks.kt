@@ -16,18 +16,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import kashyap.learning.stocktrading.core.presentation.widgets.AppText
 import kashyap.learning.stocktrading.core.presentation.widgets.AppTextStyle
-import org.jetbrains.compose.resources.painterResource
+import kashyap.learning.stocktrading.stockmarket.domain.StockInfo
+import kashyap.learning.stocktrading.stockmarket.domain.StockType
 import org.jetbrains.compose.resources.stringResource
 import stocktradingapp.composeapp.generated.resources.Res
-import stocktradingapp.composeapp.generated.resources.bussiness_man
 import stocktradingapp.composeapp.generated.resources.recommended
 
 @Composable
-fun RecommendedStocks() {
+fun RecommendedStocks(recommendedStocks: List<StockInfo>) {
     Column(Modifier.fillMaxWidth().padding(horizontal = 24.dp, vertical = 36.dp)) {
         AppText(
             text = stringResource(Res.string.recommended),
@@ -38,15 +37,8 @@ fun RecommendedStocks() {
                 .padding(top = 18.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            items(5) {
-                RecommendedStockCard(
-                    logo = painterResource(Res.drawable.bussiness_man),
-                    ticker = "APPL",
-                    companyName = "Apple Inc.",
-                    price = "198.24",
-                    change = "2.5%",
-                    isPositive = true
-                )
+            items(recommendedStocks.size) { index ->  // Use the index correctly
+                RecommendedStockCard(recommendedStocks[index])
             }
         }
     }
@@ -54,12 +46,7 @@ fun RecommendedStocks() {
 
 @Composable
 fun RecommendedStockCard(
-    logo: Painter,
-    ticker: String,
-    companyName: String,
-    price: String,
-    change: String,
-    isPositive: Boolean
+    stockInfo: StockInfo
 ) {
     Card(
         modifier = Modifier
@@ -72,7 +59,7 @@ fun RecommendedStockCard(
                 .padding(vertical = 12.dp),
             verticalArrangement = Arrangement.SpaceBetween,
         ) {
-            StockCard(logo, ticker, companyName)
+            StockCard(stockInfo.stockImageUrl, stockInfo.symbol, stockInfo.fullName)
             Spacer(modifier = Modifier.height(8.dp))
             Row(
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp),
@@ -80,11 +67,12 @@ fun RecommendedStockCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 AppText(
-                    text = price,
+                    text = stockInfo.ltp,
                     style = AppTextStyle.TitleMedium,
                     color = Color.White
                 )
-                PercentageChangeText(change, isPositive, Modifier)
+                if (stockInfo.stockType is StockType.Recommended)
+                PercentageChangeText(stockInfo.stockType.buy, stockInfo.stockType.buy > stockInfo.stockType.sell, Modifier)
             }
         }
     }

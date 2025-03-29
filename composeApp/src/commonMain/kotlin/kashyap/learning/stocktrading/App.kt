@@ -14,8 +14,10 @@ import androidx.navigation.compose.rememberNavController
 import kashyap.learning.stocktrading.core.presentation.AppColor
 import kashyap.learning.stocktrading.route.Route
 import kashyap.learning.stocktrading.stockmarket.presentation.home.HomeScreenRoot
+import kashyap.learning.stocktrading.stockmarket.presentation.home.StocksHomeViewModel
 import kashyap.learning.stocktrading.stockmarket.presentation.stockdetails.StockDetailsScreenRoot
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 @Preview
@@ -34,7 +36,8 @@ fun App() {
                     exitTransition = { slideOutHorizontally() },
                     popEnterTransition = { slideInHorizontally() }
                 ) {
-                    HomeScreenRoot()
+                    val viewModel = koinViewModel<StocksHomeViewModel>()
+                    HomeScreenRoot(viewModel)
                 }
                 composable<Route.StockPage>(
                     enterTransition = { slideInHorizontally { initialOffset ->

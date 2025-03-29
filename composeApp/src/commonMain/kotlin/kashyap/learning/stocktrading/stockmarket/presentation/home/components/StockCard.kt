@@ -16,12 +16,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 import kashyap.learning.stocktrading.core.presentation.widgets.AppText
 import kashyap.learning.stocktrading.core.presentation.widgets.AppTextStyle
 
 @Composable
 fun StockCard(
-    logo: Painter,
+    logoUrl: String,
     ticker: String,
     companyName: String
 ) {
@@ -29,8 +30,8 @@ fun StockCard(
         modifier = Modifier.padding(12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Image(
-            painter = logo,
+        AsyncImage(
+            model = logoUrl,
             contentDescription = "logo",
             modifier = Modifier
                 .size(40.dp)

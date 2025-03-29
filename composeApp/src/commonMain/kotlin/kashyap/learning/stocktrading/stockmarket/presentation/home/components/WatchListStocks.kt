@@ -18,14 +18,14 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import kashyap.learning.stocktrading.core.presentation.widgets.AppText
 import kashyap.learning.stocktrading.core.presentation.widgets.AppTextStyle
-import org.jetbrains.compose.resources.painterResource
+import kashyap.learning.stocktrading.stockmarket.domain.StockInfo
+import kashyap.learning.stocktrading.stockmarket.domain.StockType
 import org.jetbrains.compose.resources.stringResource
 import stocktradingapp.composeapp.generated.resources.Res
-import stocktradingapp.composeapp.generated.resources.bussiness_man
 import stocktradingapp.composeapp.generated.resources.watchlist
 
 @Composable
-fun WatchListStocks() {
+fun WatchListStocks(watchlistStocks: List<StockInfo>) {
     Column(Modifier.fillMaxWidth().padding(horizontal = 24.dp)) {
         AppText(
             text = stringResource(Res.string.watchlist),
@@ -35,15 +35,8 @@ fun WatchListStocks() {
             modifier = Modifier.padding(top = 18.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            items(5) {
-                WatchListCard(
-                    logo = painterResource(Res.drawable.bussiness_man),
-                    ticker = "APPL",
-                    companyName = "Apple Inc.",
-                    price = "198.24",
-                    change = "2.5%",
-                    isPositive = true
-                )
+            items(watchlistStocks.size) {
+                WatchListCard(watchlistStocks[it])
             }
         }
     }
@@ -51,12 +44,7 @@ fun WatchListStocks() {
 
 @Composable
 fun WatchListCard(
-    logo: Painter,
-    ticker: String,
-    companyName: String,
-    price: String,
-    change: String,
-    isPositive: Boolean
+    stockInfo: StockInfo
 ) {
     Card(
         modifier = Modifier.clip(RoundedCornerShape(12.dp)).background(Color.Black)
@@ -66,11 +54,12 @@ fun WatchListCard(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
-            StockCard(logo, ticker, companyName)
+            StockCard(stockInfo.stockImageUrl, stockInfo.symbol, stockInfo.fullName)
             AppText(
-                text = price, style = AppTextStyle.TitleMedium, color = Color.White
+                text = stockInfo.ltp, style = AppTextStyle.TitleMedium, color = Color.White
             )
-            PercentageChangeText(change, isPositive, Modifier.padding(end = 12.dp))
+            if (stockInfo.stockType is StockType.Watchlist)
+            PercentageChangeText(stockInfo.stockType.changePercentage, stockInfo.stockType.changePercentage?.toDoubleOrNull()?.let { it > 0 } ?: false, Modifier.padding(end = 12.dp))
         }
     }
 }
