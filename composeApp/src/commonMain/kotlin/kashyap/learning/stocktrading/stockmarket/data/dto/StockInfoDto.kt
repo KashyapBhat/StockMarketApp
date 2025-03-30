@@ -21,7 +21,7 @@ fun String.toStockInfoDto(
 ): StockInfoDto {
     val latestTrend = recommendations.lastOrNull()
 
-    require(latestTrend.symbol == this) { "Symbol mismatch: Expected $this but got ${latestTrend.symbol}" }
+    require(latestTrend?.symbol == this) { "Symbol mismatch: Expected $this but got ${latestTrend?.symbol}" }
 
     return StockInfoDto(
         symbol = this,

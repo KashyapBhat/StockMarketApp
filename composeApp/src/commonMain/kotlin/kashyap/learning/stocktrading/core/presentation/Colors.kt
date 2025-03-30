@@ -8,10 +8,12 @@ val AppRed = Color(0xFFFF3165)
 val AppGreen = Color(0xFF00FF66)
 val AppBlack = Color(0xFF16171C)
 
-val DarkBlue = Color(0xFF0B405E)
+val DarkBlue = Color(0xFF092E66)
 val DesertWhite = Color(0xFFF7F7F7)
 val SandYellow = Color(0xFFFFBD64)
 val LightBlue = Color(0xFF9AD9FF)
+val Violet = Color(0xFF6A1B9A)
+val DarkGrey = Color(0xFF4b514a)
 
 val AppColor = darkColors(
     primary = AppBlue,

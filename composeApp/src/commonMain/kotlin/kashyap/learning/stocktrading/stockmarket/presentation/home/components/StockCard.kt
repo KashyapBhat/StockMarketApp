@@ -40,7 +40,6 @@ fun StockCard(
         )
         Column(
             modifier = Modifier.padding(start = 16.dp)
-
         ) {
             AppText(
                 text = ticker,

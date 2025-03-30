@@ -3,7 +3,7 @@
     <string name="say_hello">Hi, Kashyap Das</string>
     <string name="say_welcome">Welcome to Stock Market Investing.</string>
     <string name="nifty_50">Nitfy 50</string>
-    <string name="recommended">Recommended Stocks</string>
+    <string name="recommended">Recommended Trends</string>
     <string name="watchlist">Watchlist</string>
 
     <string name="error_disk_full">Oops, it seems like your disk is full.</string>
