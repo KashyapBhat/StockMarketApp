@@ -14,6 +14,7 @@ val SandYellow = Color(0xFFFFBD64)
 val LightBlue = Color(0xFF9AD9FF)
 val Violet = Color(0xFF6A1B9A)
 val DarkGrey = Color(0xFF4b514a)
+val DarkRed = Color(0xFF410a19)
 
 val cardColors = listOf(DarkGrey, DarkBlue, Violet)
 
