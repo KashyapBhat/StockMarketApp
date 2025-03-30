@@ -20,7 +20,6 @@ fun String.toStockInfoDto(
     profile: CompanyProfile
 ): StockInfoDto {
     val latestTrend = recommendations.lastOrNull()
-        ?: throw IllegalStateException("No recommendation trends available")
 
     require(latestTrend.symbol == this) { "Symbol mismatch: Expected $this but got ${latestTrend.symbol}" }
 
@@ -30,8 +29,8 @@ fun String.toStockInfoDto(
         logoUrl = profile.logoUrl ?: "",
         currentPrice = quote.currentPrice,
         prevClosePrice = quote.prevClosePrice,
-        buy = latestTrend.buy,
-        hold = latestTrend.hold,
-        sell = latestTrend.sell
+        buy = latestTrend?.buy ?: 0,
+        hold = latestTrend?.hold?: 0,
+        sell = latestTrend?.sell?: 0
     )
 }
