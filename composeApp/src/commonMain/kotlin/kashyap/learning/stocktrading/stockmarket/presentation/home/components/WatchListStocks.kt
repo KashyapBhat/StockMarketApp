@@ -1,6 +1,5 @@
 package kashyap.learning.stocktrading.stockmarket.presentation.home.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,8 +13,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
+import kashyap.learning.stocktrading.core.presentation.cardColors
 import kashyap.learning.stocktrading.core.presentation.widgets.AppText
 import kashyap.learning.stocktrading.core.presentation.widgets.AppTextStyle
 import kashyap.learning.stocktrading.stockmarket.domain.StockInfo
@@ -36,21 +35,20 @@ fun WatchListStocks(watchlistStocks: List<StockInfo>) {
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             items(watchlistStocks.size) {
-                WatchListCard(watchlistStocks[it])
+                WatchListCard(watchlistStocks[it], cardColors[it % cardColors.size])
             }
         }
     }
 }
 
 @Composable
-fun WatchListCard(
-    stockInfo: StockInfo
-) {
+fun WatchListCard(stockInfo: StockInfo, backgroundColor: Color) {
     Card(
-        modifier = Modifier.clip(RoundedCornerShape(12.dp)).background(Color.Black)
+        modifier = Modifier.clip(RoundedCornerShape(12.dp)),
+        backgroundColor = backgroundColor,
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth().padding(vertical = 12.dp),
+            modifier = Modifier.fillMaxWidth().padding(top = 12.dp, bottom = 12.dp, end = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
@@ -59,7 +57,10 @@ fun WatchListCard(
                 text = stockInfo.ltp, style = AppTextStyle.TitleMedium, color = Color.White
             )
             if (stockInfo.stockType is StockType.Watchlist)
-            PercentageChangeText(stockInfo.stockType.changePercentage, stockInfo.stockType.changePercentage?.toDoubleOrNull()?.let { it > 0 } ?: false, Modifier.padding(end = 12.dp))
+                PercentageChangeText(
+                    stockInfo.stockType.changePercentage,
+                    stockInfo.stockType.changePercentage.toDoubleOrNull()?.let { it > 0 } ?: false,
+                    Modifier.padding(end = 12.dp))
         }
     }
 }
